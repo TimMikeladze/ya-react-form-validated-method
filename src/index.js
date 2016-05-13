@@ -2,6 +2,8 @@ import { YaForm, FormActions } from 'meteor/ya-react-form';
 import { CallPromiseMixin as callPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidationError } from 'meteor/mdg:validation-error';
 
+const isNotValidationErrorMsg = 'ValidatedMethod\'s validate must throw an mdg:validation-error';
+
 YaForm.validatedMethod = ({ name, method }) => {
   const validator = ({ form, dispatch }) => {
     try {
@@ -15,7 +17,7 @@ YaForm.validatedMethod = ({ name, method }) => {
           ));
         });
       } else {
-        throw new Error('ValidatedMethod\'s validate must throw an mdg:validation-error');
+        throw new Error(isNotValidationErrorMsg);
       }
     }
   };
@@ -23,5 +25,8 @@ YaForm.validatedMethod = ({ name, method }) => {
     const promise = !method.hasOwnProperty('callPromise') ? callPromiseMixin(method) : method;
     return promise.callPromise({ ...form });
   };
-  return YaForm.submit({ name, validator, method: makePromise });
+  const onFailure = ({ err, name, dispatch }) => { // eslint-disable-line no-shadow
+    dispatch(FormActions.error({ formName: name, reason: err.reason }));
+  };
+  return YaForm.submit({ name, validator, onFailure, method: makePromise });
 };
