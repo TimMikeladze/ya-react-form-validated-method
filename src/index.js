@@ -11,7 +11,7 @@ YaForm.validatedMethod = ({ name, method }) => {
         dispatch(FormActions.error({ formName: name, reason: exception.reason }));
         exception.details.forEach(obj => {
           dispatch(FormActions.invalidateField(
-            { formName: name, name: obj.name, reason: exception.type }
+            { formName: name, name: obj.name, reason: obj.type }
           ));
         });
       } else {
@@ -21,7 +21,7 @@ YaForm.validatedMethod = ({ name, method }) => {
   };
   const makePromise = ({ form }) => {
     const promise = !method.hasOwnProperty('callPromise') ? callPromiseMixin(method) : method;
-    return promise.callPromise({ form });
+    return promise.callPromise({ ...form });
   };
   return YaForm.submit({ name, validator, method: makePromise });
 };
