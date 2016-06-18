@@ -32,4 +32,10 @@ class YaFormValidatedMethod extends YaForm {
   }
 }
 
+YaFormValidatedMethod.create = (name, validatedMethod, dispatch) =>
+  dispatch((() => (thunkDispatch, thunkGetStore) =>
+    new YaFormValidatedMethod(thunkDispatch, thunkGetStore()).submit(name, validatedMethod)
+  )()
+);
+
 export default YaFormValidatedMethod;
