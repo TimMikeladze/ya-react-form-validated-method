@@ -21,9 +21,11 @@ class YaFormValidatedMethod extends YaForm {
         dispatch(Actions.setFormError(name, err.reason));
         // Set field errors
         // TODO Use more descriptive error value than field.type
-        err.details.forEach(
-          field => dispatch(Actions.setFieldError(name, field.name, field.type))
-        );
+        if (Array.isArray(err.detail)) {
+          err.details.forEach(
+            field => dispatch(Actions.setFieldError(name, field.name, field.type))
+          );
+        }
       } else {
         throw new Error('Expected error to be of type Meteor.Error');
       }
@@ -32,10 +34,14 @@ class YaFormValidatedMethod extends YaForm {
   }
 }
 
-YaFormValidatedMethod.create = (name, validatedMethod, dispatch) =>
-  dispatch((() => (thunkDispatch, thunkGetStore) =>
-    new YaFormValidatedMethod(thunkDispatch, thunkGetStore()).submit(name, validatedMethod)
-  )()
-);
+YaFormValidatedMethod.create = (method, form, dispatch) => {
+  let promise;
+  const action = () => (thunkDispatch, thunkGetStore) => {
+    const yaForm = new YaFormValidatedMethod(thunkDispatch, thunkGetStore());
+    promise = yaForm.submit(form, method);
+  };
+  dispatch(action());
+  return promise;
+};
 
 export default YaFormValidatedMethod;
