@@ -1,3 +1,9 @@
+import FormHandler from './FormHandler';
+import MeteorForm from './MeteorForm';
+
+export { FormHandler, MeteorForm };
+
+/*
 import { YaForm, Actions } from 'ya-react-form';
 
 class YaFormValidatedMethod extends YaForm {
@@ -43,5 +49,4 @@ YaFormValidatedMethod.create = (method, form, dispatch) => {
   dispatch(action());
   return promise;
 };
-
-export default YaFormValidatedMethod;
+*/
