@@ -1,5 +1,5 @@
 {
-  "name": "ya-react-form-validated-method",
+  "name": "ya-react-redux-form-meteor",
   "version": "0.0.1",
   "description": "Extends ya-react-form to streamline usage with mdg:validated-method",
   "main": "dist/index.js",
