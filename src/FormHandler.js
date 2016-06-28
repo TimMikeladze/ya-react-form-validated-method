@@ -1,7 +1,12 @@
 import { Actions, FormHandler } from 'ya-react-redux-form';
 
 class MeteorFormHandler extends FormHandler {
-  submit(name, validatedMethod) {
+  constructor(args) {
+    super(args);
+    this.validatedMethod = args.validatedMethod;
+  }
+
+  submit() {
     this.setMethod(({ form }) =>
       new Promise((resolve, reject) =>
         validatedMethod.call(form, (err, result) => {
