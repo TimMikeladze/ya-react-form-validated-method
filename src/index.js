@@ -1,7 +1,7 @@
 import FormHandler from './FormHandler';
-import MeteorForm from './MeteorForm';
+import Form from './MeteorForm';
 
-export { FormHandler, MeteorForm };
+export { FormHandler, Form };
 
 /*
 import { YaForm, Actions } from 'ya-react-form';
