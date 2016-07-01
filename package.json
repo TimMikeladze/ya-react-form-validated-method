@@ -1,7 +1,7 @@
 {
   "name": "ya-react-redux-form-meteor",
   "version": "0.0.1",
-  "description": "Extends ya-react-form to streamline usage with mdg:validated-method",
+  "description": "Extends ya-react-redux-form to streamline usage with mdg:validated-method",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/ test/",
