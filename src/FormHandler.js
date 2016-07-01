@@ -4,9 +4,9 @@ class MeteorFormHandler extends FormHandler {
   constructor(args) {
     super(args);
     this.validatedMethod = args.validatedMethod;
-    this.setMethod(({ form }) =>
+    this.setMethod(methodArgs =>
       new Promise((resolve, reject) =>
-        this.validatedMethod.call(form, (err, result) => {
+        this.validatedMethod.call(methodArgs.form, (err, result) => {
           if (err) {
             reject(err);
           } else {
@@ -19,10 +19,10 @@ class MeteorFormHandler extends FormHandler {
       // Make sure is Meteor.Error
       if (err.hasOwnProperty('errorType') && err.errorType === 'Meteor.Error') {
         // Set form error
-        dispatch(FormActions.setFormError(name, err.reason));
+        dispatch(FormActions.setFormError(name, err.reason || err.error));
         // Set field errors
         // TODO Use more descriptive error value than field.type
-        if (Array.isArray(err.detail)) {
+        if (Array.isArray(err.details)) {
           err.details.forEach(
             field => dispatch(FormActions.setFieldError(name, field.name, field.type))
           );
