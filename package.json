@@ -1,6 +1,6 @@
 {
   "name": "ya-react-redux-form-meteor",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Extends ya-react-redux-form to streamline usage with mdg:validated-method",
   "main": "dist/index.js",
   "scripts": {
@@ -8,12 +8,14 @@
     "pretest": "npm run lint --silent",
     "test": "npm run testonly",
     "testonly": "mocha -R spec test/index.js",
-    "prepublish": "babel ./src --ignore test --out-dir ./dist"
+    "build": "babel ./src --ignore test --out-dir ./dist",
+    "prepublish": "npm run build"
   },
   "author": "Tim Mikeladze",
   "license": "MIT",
   "dependencies": {
-    "babel-polyfill": "^6.9.0"
+    "babel-polyfill": "^6.9.0",
+    "ya-react-redux-form": "0.0.2"
   },
   "devDependencies": {
     "babel": "^6.5.2",
